@@ -1,16 +1,11 @@
-<script setup>
-import HelloWorld from "./components/HelloWorld.vue";
-</script>
+<script setup></script>
 
 <template>
   <header>
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-      <HelloWorld msg="Oh Yeah" />
+      <h1>I am in App.vue</h1>
     </div>
   </header>
 
   <main></main>
 </template>
-
-<style scoped></style>
