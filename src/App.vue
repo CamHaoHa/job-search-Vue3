@@ -3,7 +3,7 @@
 <template>
   <header>
     <div class="wrapper">
-      <h1>I am in App.vue</h1>
+      <h1 class="m-6 text-center text-6xl">I am in App.vue</h1>
     </div>
   </header>
 
