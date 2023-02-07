@@ -4,7 +4,6 @@ export default {
   data() {
     return {
       company: "Job Search v.1",
-      author: "Cam Hao HA",
     };
   },
 };
@@ -17,7 +16,6 @@ export default {
         class="mx-auto flex h-full flex-nowrap border-b border-solid border-brand-gray-1 px-8"
       >
         <a href="/" class="flex h-full items-center text-xl">{{ company }}</a>
-        <h2 class="ml-8 flex h-full items-center">Developed By {{ author }}</h2>
       </div>
     </div>
   </header>
