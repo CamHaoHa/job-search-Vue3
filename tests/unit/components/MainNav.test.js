@@ -25,7 +25,7 @@ describe("MainNav", () => {
   });
 
   describe("when the user logs in", () => {
-    it("displate profile picture", () => {
+    it("displate profile picture", async () => {
       render(MainNav);
       let profileImage = screen.queryByRole("img", {
         name: /user profile image/i,
@@ -35,9 +35,10 @@ describe("MainNav", () => {
       const loginButton = screen.getByRole("button", {
         name: /sign in/i,
       });
-      userEvent.click(loginButton);
 
-      profileImage = screen.queryByRole("img", {
+      await userEvent.click(loginButton);
+
+      profileImage = screen.getByRole("img", {
         name: /user profile image/i,
       });
       expect(profileImage).toBeInTheDocument();
