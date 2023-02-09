@@ -58,7 +58,7 @@ export default {
           <action-button
             v-else
             text="Sign in"
-            :is-primary="true"
+            type="primary"
             @:click="loginUser"
           />
         </div>
