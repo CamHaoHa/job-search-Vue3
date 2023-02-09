@@ -64,7 +64,7 @@ export default {
         </div>
       </div>
 
-      <TheSubnav />
+      <TheSubnav v-if="isLoggedIn" />
     </div>
   </header>
 </template>
