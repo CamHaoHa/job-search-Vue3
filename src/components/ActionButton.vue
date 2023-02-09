@@ -28,7 +28,7 @@ export default {
 </script>
 
 <template>
-  <button :class="buttonClass" @click="handleClick">
+  <button :class="buttonClass">
     {{ text }}
   </button>
 </template>

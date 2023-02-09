@@ -25,7 +25,7 @@ describe("TheSubnav", () => {
           };
         },
       });
-      const jobCount = screen.getByText("9999");
+      const jobCount = screen.queryByText("9999");
       expect(jobCount).not.toBeInTheDocument();
     });
   });
