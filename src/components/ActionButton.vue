@@ -10,6 +10,9 @@ export default {
       type: String,
       required: true,
       default: "primary",
+      validator(value) {
+        return ["primary", "secondary"].includes(value);
+      },
     },
   },
   computed: {
