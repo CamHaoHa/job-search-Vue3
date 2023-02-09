@@ -17,10 +17,10 @@ describe("MainNav", () => {
     expect(mainNavTexts).toEqual([
       "Teams",
       "Location",
-      "About Us",
-      "Career",
-      "Students",
+      "Benefits",
       "Jobs",
+      "Students",
+      "About Us",
     ]);
   });
 
