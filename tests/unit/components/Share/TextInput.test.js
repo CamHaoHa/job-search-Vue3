@@ -12,7 +12,7 @@ describe("TextInput", () => {
     });
     const input = screen.getByRole("textbox");
     await userEvent.type(input, "HAO");
-    console.log(emitted());
+    // console.log(emitted());
     const messages = emitted()["update:modelValue"];
     expect(messages).toEqual([["H"], ["HA"], ["HAO"]]);
   });
