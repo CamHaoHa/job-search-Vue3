@@ -1,8 +1,9 @@
 <script>
 import ActionButton from "@/components/Share/ActionButton.vue";
+import TextInput from "@/components/Share/TextInput.vue";
 export default {
   name: "JobSearchForm",
-  components: { ActionButton },
+  components: { ActionButton, TextInput },
   data() {
     return {
       role: "",
@@ -19,11 +20,9 @@ export default {
     <div class="flex h-full flex-1 flex-nowrap text-base font-light">
       <div class="relative flex h-full flex-1 items-center pr-3">
         <label class="absolute left-0 -top-10 font-normal">Role</label>
-        <input
-          v-model="location"
-          type="text"
+        <text-input
           placeholder="Junior Web Developer"
-          class="w-full text-lg font-normal focus:outline-none"
+          @handle-input="role = $event"
         />
       </div>
 
@@ -34,11 +33,9 @@ export default {
 
       <div class="relative flex h-full flex-1 items-center pl-3">
         <label class="absolute left-0 -top-10 font-normal">Where? </label>
-        <input
-          v-model="role"
-          type="text"
-          placeholder="Junior Web Developer"
-          class="w-full text-lg font-normal focus:outline-none"
+        <text-input
+          placeholder="Sydney, NSW, Australia"
+          @handle-input="location = $event"
         />
       </div>
 
