@@ -3,6 +3,12 @@ import ActionButton from "@/components/ActionButton.vue";
 export default {
   name: "JobSearchForm",
   components: { ActionButton },
+  data() {
+    return {
+      role: "",
+      location: "",
+    };
+  },
 };
 </script>
 <template>
@@ -14,6 +20,7 @@ export default {
       <div class="relative flex h-full flex-1 items-center pr-3">
         <label class="absolute left-0 -top-10 font-normal">Role</label>
         <input
+          v-model="location"
           type="text"
           placeholder="Junior Web Developer"
           class="w-full text-lg font-normal focus:outline-none"
@@ -28,6 +35,7 @@ export default {
       <div class="relative flex h-full flex-1 items-center pl-3">
         <label class="absolute left-0 -top-10 font-normal">Where? </label>
         <input
+          v-model="role"
           type="text"
           placeholder="Junior Web Developer"
           class="w-full text-lg font-normal focus:outline-none"
