@@ -10,11 +10,20 @@ export default {
       location: "",
     };
   },
+  methods: {
+    searchJob() {
+      this.$router.push({
+        name: "JobResultsView",
+        query: { role: this.role, location: this.location },
+      });
+    },
+  },
 };
 </script>
 <template>
   <form
     class="border-grand-gray-3 flex h-16 w-full items-center rounded-3xl border border-solid"
+    @submit.prevent="searchJob"
   >
     <font-awesome-icon :icon="['fas', 'search']" class="mr-3 ml-4" />
     <div class="flex h-full flex-1 flex-nowrap text-base font-light">
