@@ -1,11 +1,9 @@
 <script>
 import MainNav from "@/components/Navigation/MainNav.vue";
-import TheHero from "@/components/JobSearch/TheHero.vue";
 export default {
   name: "App",
   components: {
     MainNav,
-    TheHero,
   },
 };
 </script>
@@ -14,7 +12,7 @@ export default {
   <header>
     <div class="wrapper">
       <main-nav />
-      <the-hero />
+      <router-view />
     </div>
   </header>
 

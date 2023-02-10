@@ -14,12 +14,12 @@ export default {
       company: "VueJobs.com",
       url: "https://google.com",
       menuItems: [
-        "Teams",
-        "Location",
-        "Benefits",
-        "Jobs",
-        "Students",
-        "About Us",
+        { text: "Teams", url: "/" },
+        { text: "Location", url: "/" },
+        { text: "Benefits", url: "/" },
+        { text: "Jobs", url: "/jobs/results" },
+        { text: "Students", url: "/" },
+        { text: "About Us", url: "/" },
       ],
       isLoggedIn: false,
     };
@@ -46,22 +46,24 @@ export default {
       <div
         class="mx-auto flex h-full flex-nowrap border-b border-solid border-brand-gray-1 px-8"
       >
-        <a
-          :href="url"
+        <router-link
+          :to="{ name: 'Home' }"
           class="flex h-full items-center text-3xl font-semibold"
-          >{{ company }}</a
+          >{{ company }}</router-link
         >
 
         <nav class="ml-12 h-full">
           <ul class="flex h-full list-none text-lg font-medium">
             <li
               v-for="menuItem in menuItems"
-              :key="menuItem"
+              :key="menuItem.text"
               class="ml-9 h-full first:ml-5"
             >
-              <a href="" class="flex h-full items-center py-2.5">{{
-                menuItem
-              }}</a>
+              <router-link
+                :to="menuItem.url"
+                class="flex h-full items-center py-2.5"
+                >{{ menuItem.text }}</router-link
+              >
             </li>
           </ul>
         </nav>
