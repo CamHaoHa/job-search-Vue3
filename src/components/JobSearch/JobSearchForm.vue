@@ -20,10 +20,7 @@ export default {
     <div class="flex h-full flex-1 flex-nowrap text-base font-light">
       <div class="relative flex h-full flex-1 items-center pr-3">
         <label class="absolute left-0 -top-10 font-normal">Role</label>
-        <text-input
-          placeholder="Junior Web Developer"
-          @handle-input="role = $event"
-        />
+        <text-input v-model="role" placeholder="Junior Web Developer" />
       </div>
 
       <span
@@ -33,10 +30,7 @@ export default {
 
       <div class="relative flex h-full flex-1 items-center pl-3">
         <label class="absolute left-0 -top-10 font-normal">Where? </label>
-        <text-input
-          placeholder="Sydney, NSW, Australia"
-          @handle-input="location = $event"
-        />
+        <text-input v-model="location" placeholder="Sydney, NSW, Australia" />
       </div>
 
       <ActionButton type="secondary" text="Search" class="rounded-r-3xl" />
