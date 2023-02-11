@@ -28,8 +28,14 @@ export default {
     <font-awesome-icon :icon="['fas', 'search']" class="mr-3 ml-4" />
     <div class="flex h-full flex-1 flex-nowrap text-base font-light">
       <div class="relative flex h-full flex-1 items-center pr-3">
-        <label class="absolute left-0 -top-10 font-normal">Role</label>
-        <text-input v-model="role" placeholder="Junior Web Developer" />
+        <label for="role" class="absolute left-0 -top-10 font-normal"
+          >Role</label
+        >
+        <text-input
+          id="role"
+          v-model="role"
+          placeholder="Junior Web Developer"
+        />
       </div>
 
       <span
@@ -38,8 +44,14 @@ export default {
       </span>
 
       <div class="relative flex h-full flex-1 items-center pl-3">
-        <label class="absolute left-0 -top-10 font-normal">Where? </label>
-        <text-input v-model="location" placeholder="Sydney, NSW, Australia" />
+        <label for="location" class="absolute left-0 -top-10 font-normal"
+          >Location
+        </label>
+        <text-input
+          id="location"
+          v-model="location"
+          placeholder="Sydney, NSW, Australia"
+        />
       </div>
 
       <ActionButton type="secondary" text="Search" class="rounded-r-3xl" />
