@@ -4,5 +4,5 @@ export default {
 };
 </script>
 <template>
-  <main>Job Listings Component</main>
+  <main class="flex-auto bg-brand-gray-2 p-8">Job Listings Component</main>
 </template>
