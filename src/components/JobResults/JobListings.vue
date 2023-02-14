@@ -10,8 +10,24 @@ export default {
     };
   },
   computed: {
+    currentPage() {
+      return Number.parseInt(this.$route.query.page || "1");
+    },
+
+    previousPage() {
+      const previousPage = this.currentPage - 1;
+      const minPage = 1;
+      return previousPage >= minPage ? previousPage : undefined;
+    },
+
+    nextPage() {
+      const nextPage = this.currentPage + 1;
+      const maxPage = this.jobs.length / 10;
+      return nextPage <= maxPage ? nextPage : undefined;
+    },
+
     displayedJob() {
-      const pageString = this.$route.query.page || "1";
+      const pageString = this.currentPage;
       const pageNumber = Number.parseInt(pageString);
       const firstJobIndex = (pageNumber - 1) * 10;
       const lastJobIndex = pageNumber * 10;
@@ -30,5 +46,28 @@ export default {
     <ol>
       <job-listing v-for="job in displayedJob" :key="job.id" :job="job" />
     </ol>
+    <div class="mx-auto mt-8">
+      <div class="flex-no-wrap flex flex-row">
+        <p class="flex-grow text-sm">Page {{ currentPage }}</p>
+
+        <div class="item-center flex justify-center">
+          <router-link
+            v-if="previousPage"
+            :to="{ name: 'JobResultsView', query: { page: previousPage } }"
+            class="mx-3 text-sm font-semibold text-brand-blue-1"
+          >
+            Previous
+          </router-link>
+
+          <router-link
+            v-if="nextPage"
+            :to="{ name: 'JobResultsView', query: { page: nextPage } }"
+            class="mx-3 text-sm font-semibold text-brand-blue-1"
+          >
+            Next
+          </router-link>
+        </div>
+      </div>
+    </div>
   </main>
 </template>
