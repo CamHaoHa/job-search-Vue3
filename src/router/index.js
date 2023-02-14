@@ -23,6 +23,9 @@ const routers = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes: routers,
+  scrollBehavior() {
+    return { top: 0, left: 0, behavior: "smooth" };
+  },
 });
 
 export default router;
