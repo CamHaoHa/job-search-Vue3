@@ -63,7 +63,7 @@ describe("JobListings", () => {
   });
 
   //test the presence and absence of previos and next button
-  describe("when the user as page 1", () => {
+  describe("when the user at the first page ", () => {
     it("not display the previous button", async () => {
       axios.get.mockResolvedValue({ data: Array(25).fill({}) });
       const queryParams = { page: "1" };
@@ -86,5 +86,29 @@ describe("JobListings", () => {
       // screen.debug();
       expect(nextLink).toBeInTheDocument();
     });
+  });
+
+  describe("when the user at the last page", () => {
+    it("not display the next button", async () => {
+      axios.get.mockResolvedValue({ data: Array(25).fill({}) });
+      const queryParams = { page: "3" };
+      const $route = createRoute(queryParams);
+      renderJobListings($route);
+      await screen.findAllByRole("listitem");
+      const nextLink = screen.queryByRole("link", { name: /next/i });
+      expect(nextLink).not.toBeInTheDocument();
+    });
+  });
+
+  it("display the previous button", async () => {
+    axios.get.mockResolvedValue({ data: Array(25).fill({}) });
+    const queryParams = { page: "3" };
+    const $route = createRoute(queryParams);
+
+    renderJobListings($route);
+
+    await screen.findAllByRole("listitem");
+    const previousLink = screen.queryByRole("link", { name: /previous/i });
+    expect(previousLink).toBeInTheDocument();
   });
 });
