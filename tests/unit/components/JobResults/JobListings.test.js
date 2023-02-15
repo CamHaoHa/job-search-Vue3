@@ -42,4 +42,23 @@ describe("JobListings", () => {
     expect(jobListings).toHaveLength(10);
     // expect(jobListings.length).toBe(10);
   });
+
+  //adding test for page number
+  describe("when there is NOT query params for page number", () => {
+    it("display page number one", () => {
+      const queryParams = { page: undefined }; //when this.$route.query.pate is undefined
+      const $route = createRoute(queryParams);
+      renderJobListings($route);
+      expect(screen.getByText("Page 1")).toBeInTheDocument();
+    });
+  });
+
+  describe("when query params include page number", () => {
+    it("display page number one", () => {
+      const queryParams = { page: "8" };
+      const $route = createRoute(queryParams);
+      renderJobListings($route);
+      expect(screen.getByText("Page 8")).toBeInTheDocument();
+    });
+  });
 });
