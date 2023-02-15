@@ -22,7 +22,7 @@ export default {
 
     nextPage() {
       const nextPage = this.currentPage + 1;
-      const maxPage = this.jobs.length / 10;
+      const maxPage = Math.ceil(this.jobs.length / 10);
       return nextPage <= maxPage ? nextPage : undefined;
     },
 
@@ -53,6 +53,7 @@ export default {
         <div class="item-center flex justify-center">
           <router-link
             v-if="previousPage"
+            role="link"
             :to="{ name: 'JobResultsView', query: { page: previousPage } }"
             class="mx-3 text-sm font-semibold text-brand-blue-1"
           >
@@ -61,6 +62,7 @@ export default {
 
           <router-link
             v-if="nextPage"
+            role="link"
             :to="{ name: 'JobResultsView', query: { page: nextPage } }"
             class="mx-3 text-sm font-semibold text-brand-blue-1"
           >
