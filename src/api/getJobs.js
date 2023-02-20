@@ -1,9 +1,10 @@
 import axios from "axios";
 
-const getJobs = () => {
+const getJobs = async () => {
   const baseUrl = import.meta.env.VITE_APP_API_URL;
-  const response = await.axios.get(`${baseUrl}/jobs`);
-  this.jo;
+  const url = `${baseUrl}/jobs`;
+  const response = await axios.get(url);
+  return response.data;
 };
 
-export default getJobs();
+export default getJobs;
