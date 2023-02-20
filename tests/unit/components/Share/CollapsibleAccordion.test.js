@@ -23,4 +23,22 @@ describe("CollapsibleAccordion", () => {
     await userEvent.click(button);
     expect(screen.getByText("nested child")).toBeInTheDocument();
   });
+
+  describe("when parent does not custom child content", () => {
+    it("render fallback slot content", async () => {
+      render(CollapsibleAccordion, {
+        global: {
+          stubs: {
+            FontAwesomeIcon: true,
+          },
+        },
+        props: {
+          header: "category",
+        },
+      });
+      const button = screen.getByRole("button", { name: /category/i });
+      await userEvent.click(button);
+      expect(screen.getByText("Default Slot")).toBeInTheDocument();
+    });
+  });
 });
