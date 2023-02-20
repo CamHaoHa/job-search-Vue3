@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/vue";
 import JobListings from "@/components/JobResults/JobListings.vue";
 import axios from "axios";
 import { RouterLinkStub } from "@vue/test-utils";
+import { createTestingPinia } from "@pinia/testing";
 
 vi.mock("axios");
 

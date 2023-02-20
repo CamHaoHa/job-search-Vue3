@@ -1,14 +1,14 @@
 <script>
+import { mapActions, mapState } from "pinia";
+
 import JobListing from "@/components/JobResults/JobListing.vue";
-import axios from "axios";
+
+import { useJobsStore, FETCH_JOBS } from "@/stores/jobs";
+
 export default {
   name: "JobListings",
   components: { JobListing },
-  data() {
-    return {
-      jobs: [],
-    };
-  },
+
   computed: {
     currentPage() {
       return Number.parseInt(this.$route.query.page || "1");
@@ -20,27 +20,31 @@ export default {
       return previousPage >= minPage ? previousPage : undefined;
     },
 
-    nextPage() {
-      const nextPage = this.currentPage + 1;
-      const maxPage = Math.ceil(this.jobs.length / 10);
-      return nextPage <= maxPage ? nextPage : undefined;
-    },
+    ...mapState(useJobsStore, {
+      jobs: "jobs",
+      nextPage() {
+        const nextPage = this.currentPage + 1;
+        const maxPage = Math.ceil(this.jobs.length / 10);
+        return nextPage <= maxPage ? nextPage : undefined;
+      },
 
-    displayedJob() {
-      const pageString = this.currentPage;
-      const pageNumber = Number.parseInt(pageString);
-      const firstJobIndex = (pageNumber - 1) * 10;
-      const lastJobIndex = pageNumber * 10;
-      console.log(firstJobIndex, lastJobIndex);
-      return this.jobs.slice(firstJobIndex, lastJobIndex);
-    },
+      displayedJob() {
+        const pageString = this.currentPage;
+        const pageNumber = Number.parseInt(pageString);
+        const firstJobIndex = (pageNumber - 1) * 10;
+        const lastJobIndex = pageNumber * 10;
+        console.log(firstJobIndex, lastJobIndex);
+        return this.jobs.slice(firstJobIndex, lastJobIndex);
+      },
+    }),
   },
-  async mounted() {
-    const baseUrl = import.meta.env.VITE_APP_API_URL;
-    // const response = await axios.get("http://localhost:3000/jobs");
-    const response = await axios.get(`${baseUrl}/jobs`);
 
-    this.jobs = response.data;
+  async mounted() {
+    this.FETCH_JOBS();
+  },
+
+  methods: {
+    ...mapActions(useJobsStore, [FETCH_JOBS]),
   },
 };
 </script>
