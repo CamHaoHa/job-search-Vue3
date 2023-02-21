@@ -17,7 +17,7 @@ export default {
       company: "VueJobs.com",
       url: "https://google.com",
       menuItems: [
-        { text: "Teams", url: "/" },
+        { text: "Teams", url: "/teams" },
         { text: "Location", url: "/" },
         { text: "Benefits", url: "/" },
         { text: "Jobs", url: "/jobs/results" },

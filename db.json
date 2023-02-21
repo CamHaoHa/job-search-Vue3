@@ -1,4 +1,18 @@
 {
+  "spotlights": [
+    {
+      "id": 1,
+      "img": "https://images.unsplash.com/photo-1556075798-4825dfaaf498",
+      "title": "Cloud Engineering",
+      "description": "Build fun stuff in the cloud. It's a lot of fun, we promise!"
+    },
+    {
+      "id": 2,
+      "img": "https://images.unsplash.com/photo-1511376777868-611b54f68947",
+      "title": "Executive Leadership",
+      "description": "Be a leader for everyone. Leadership builds character."
+    }
+  ],
   "jobs": [
     {
       "id": 1,
