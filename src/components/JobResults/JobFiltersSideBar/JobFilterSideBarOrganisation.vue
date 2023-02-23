@@ -14,6 +14,11 @@ export default {
   computed: {
     ...mapState(useJobsStore, [UNIQUE_ORGANIZATIONS]),
   },
+  methods: {
+    selectOrganiztion() {
+      console.log(this.selectedOrganization);
+    },
+  },
 };
 </script>
 
@@ -33,6 +38,7 @@ export default {
               :value="organization"
               type="checkbox"
               class="mr-3"
+              @change="selectOrganiztion"
             />
             <label for="organization">{{ organization }}</label>
           </li>
