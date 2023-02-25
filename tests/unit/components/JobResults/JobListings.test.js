@@ -16,8 +16,8 @@ describe("JobListings", () => {
     const pinia = createTestingPinia();
 
     render(JobListings, {
-      plugins: [pinia],
       global: {
+        plugins: [pinia],
         mocks: {
           $route: $route,
         },
@@ -112,18 +112,18 @@ describe("JobListings", () => {
       const nextLink = screen.queryByRole("link", { name: /next/i });
       expect(nextLink).not.toBeInTheDocument();
     });
-  });
 
-  it("display the previous button", async () => {
-    const queryParams = { page: "3" };
-    const $route = createRoute(queryParams);
-    renderJobListings($route);
+    it("display the previous button", async () => {
+      const queryParams = { page: "3" };
+      const $route = createRoute(queryParams);
+      renderJobListings($route);
 
-    const jobsStore = useJobsStore();
-    jobsStore.jobs = Array(25).fill({});
+      const jobsStore = useJobsStore();
+      jobsStore.jobs = Array(25).fill({});
 
-    await screen.findAllByRole("listitem");
-    const previousLink = screen.queryByRole("link", { name: /previous/i });
-    expect(previousLink).toBeInTheDocument();
+      await screen.findAllByRole("listitem");
+      const previousLink = screen.queryByRole("link", { name: /previous/i });
+      expect(previousLink).toBeInTheDocument();
+    });
   });
 });
