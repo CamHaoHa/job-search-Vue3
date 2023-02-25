@@ -6,6 +6,7 @@ export const useUserStore = defineStore("user", {
     isLoggedIn: false,
     selectedOrganizations: [],
   }),
+
   actions: {
     loginUser() {
       this.isLoggedIn = true;
