@@ -2,6 +2,7 @@ import { createPinia, setActivePinia } from "pinia";
 import { useJobsStore } from "@/stores/jobs";
 import { useUserStore } from "@/stores/user";
 import axios from "axios";
+import { isInDestructureAssignment } from "vue/compiler-sfc";
 
 vi.mock("axios");
 
@@ -65,6 +66,28 @@ describe("getter", () => {
       const result = jobsStore.FILTER_JOBS_BY_ORGANIZATIONS;
 
       expect(result).toEqual([{ organization: "Amazon" }]);
+    });
+
+    describe("when the user has not chosen any organizations for filtering", () => {
+      it("return all jobs", () => {
+        const jobsStore = useJobsStore();
+        jobsStore.jobs = [
+          { organization: "Meta" },
+          { organization: "Amazon" },
+          { organization: "Tesla" },
+        ];
+
+        const userStore = useUserStore();
+        userStore.selectedOrganizations = [];
+
+        const result = jobsStore.FILTER_JOBS_BY_ORGANIZATIONS;
+
+        expect(result).toEqual([
+          { organization: "Meta" },
+          { organization: "Amazon" },
+          { organization: "Tesla" },
+        ]);
+      });
     });
   });
 });
