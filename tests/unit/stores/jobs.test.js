@@ -16,7 +16,7 @@ describe("state", () => {
   });
 });
 
-describe("state", () => {
+describe("action", () => {
   beforeEach(() => {
     setActivePinia(createPinia());
   });
@@ -47,6 +47,19 @@ describe("getter", () => {
       const result = store.UNIQUE_ORGANIZATIONS;
 
       expect(result).toEqual(new Set(["Alphabet", "Meta"]));
+    });
+  });
+
+  describe("UNIQUE_JOB_TYPES", () => {
+    it("find unique job types in the list of jobs", () => {
+      const store = useJobsStore();
+      store.jobs = [
+        { jobType: "Full-time" },
+        { jobType: "Part-time" },
+        { jobType: "Full-time" },
+      ];
+      const result = store.UNIQUE_JOB_TYPES;
+      expect(result).toEqual(new Set(["Full-time", "Part-time"]));
     });
   });
 
@@ -85,6 +98,39 @@ describe("getter", () => {
           { organization: "Meta" },
           { organization: "Amazon" },
           { organization: "Tesla" },
+        ]);
+      });
+    });
+  });
+
+  describe("FILTER_JOBS_BY_JOB_TYPES", () => {
+    it("find jobs with jobtypes filter", () => {
+      const jobsStore = useJobsStore();
+      jobsStore.jobs = [
+        { jobType: "Full-time" },
+        { jobType: "Part-time" },
+        { jobType: "Intern" },
+      ];
+      const userStore = useUserStore();
+      userStore.selectedJobTypes = ["Full-time"];
+      const result = jobsStore.FILTER_JOBS_BY_JOB_TYPES;
+      expect(result).toEqual([{ jobType: "Full-time" }]);
+    });
+    describe("when the user has not selected any jobtypes for job filters", () => {
+      it("return all jobs", () => {
+        const jobsStore = useJobsStore();
+        jobsStore.jobs = [
+          { jobType: "Full-time" },
+          { jobType: "Part-time" },
+          { jobType: "Intern" },
+        ];
+        const userStore = useUserStore();
+        userStore.selectedJobTypes = [];
+        const result = jobsStore.FILTER_JOBS_BY_JOB_TYPES;
+        expect(result).toEqual([
+          { jobType: "Full-time" },
+          { jobType: "Part-time" },
+          { jobType: "Intern" },
         ]);
       });
     });
