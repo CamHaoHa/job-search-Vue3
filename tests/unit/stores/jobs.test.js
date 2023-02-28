@@ -2,7 +2,6 @@ import { createPinia, setActivePinia } from "pinia";
 import { useJobsStore } from "@/stores/jobs";
 import { useUserStore } from "@/stores/user";
 import axios from "axios";
-import { isInDestructureAssignment } from "vue/compiler-sfc";
 
 vi.mock("axios");
 
