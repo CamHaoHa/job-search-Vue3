@@ -42,7 +42,7 @@ export default {
               class="mr-3"
               @change="selectOrganiztion"
             />
-            <label for="organization">{{ organization }}</label>
+            <label :for="organization">{{ organization }}</label>
           </li>
         </ul>
       </fieldset>
