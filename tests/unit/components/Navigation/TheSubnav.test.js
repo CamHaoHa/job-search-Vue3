@@ -24,7 +24,7 @@ describe("TheSubnav", () => {
       const routeName = "JobResultsView";
       const { jobsStore } = renderThesubNav(routeName);
       const numberOfJobs = 200;
-      jobsStore.FILTER_JOBS_BY_ORGANIZATIONS = Array(numberOfJobs).fill({});
+      jobsStore.FILTERED_JOBS = Array(numberOfJobs).fill({});
       const jobCount = await screen.findByText(numberOfJobs);
       expect(jobCount).toBeInTheDocument();
     });
@@ -35,7 +35,7 @@ describe("TheSubnav", () => {
       const routeName = "NOTJobResultsView";
       const { jobsStore } = renderThesubNav(routeName);
       const numberOfJobs = 200;
-      jobsStore.FILTER_JOBS_BY_ORGANIZATIONS = Array(numberOfJobs).fill({});
+      jobsStore.FILTERED_JOBS = Array(numberOfJobs).fill({});
       const jobCount = screen.queryByText(numberOfJobs);
       expect(jobCount).not.toBeInTheDocument();
     });

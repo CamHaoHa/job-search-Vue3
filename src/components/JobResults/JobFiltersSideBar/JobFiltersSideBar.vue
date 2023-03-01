@@ -1,6 +1,7 @@
 <script>
 import ActionButton from "@/components/Share/ActionButton.vue";
 import JobFilterSideBarOrganisation from "@/components/JobResults/JobFiltersSideBar/JobFilterSideBarOrganisation.vue";
+import JobFilterSideBarJobTypes from "@/components/JobResults/JobFiltersSideBar/JobFilterSideBarJobTypes.vue";
 import CollapsibleAccordion from "@/components/Share/CollapsibleAccordion.vue";
 
 export default {
@@ -9,6 +10,7 @@ export default {
     ActionButton,
     CollapsibleAccordion,
     JobFilterSideBarOrganisation,
+    JobFilterSideBarJobTypes,
   },
 };
 </script>
@@ -33,6 +35,7 @@ export default {
       <collapsible-accordion></collapsible-accordion>
 
       <job-filter-side-bar-organisation />
+      <job-filter-side-bar-job-types />
     </section>
   </div>
 </template>
