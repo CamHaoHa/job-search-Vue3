@@ -3,7 +3,6 @@ import CollapsibleAccordion from "@/components/Share/CollapsibleAccordion.vue";
 import { mapState, mapActions } from "pinia";
 import { useJobsStore, UNIQUE_ORGANIZATIONS } from "@/stores/jobs.js";
 import { useUserStore, ADD_SELECTED_ORGANIZATIONS } from "@/stores/user.js";
-import { pushScopeId } from "vue";
 
 export default {
   name: "JobFilterSideBarOrganisation",
