@@ -23,7 +23,7 @@ export default {
       <div class="flex flex-row justify-between">
         <h3 class="my-4 text-base font-semibold">What do you want to do?</h3>
         <div class="flex items-center text-sm">
-          <action-button text="Clear Filter" />
+          <action-button text="Clear Filter" type="secondary" />
         </div>
       </div>
       <collapsible-accordion header="Job Types">
