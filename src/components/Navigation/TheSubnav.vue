@@ -2,10 +2,12 @@
 import { useJobsStore } from "@/stores/jobs.js";
 import { computed } from "vue";
 import { useRoute } from "vue-router";
-const router = useRoute();
-const onJobResultsPage = computed(() => router.name === "JobResultsView");
+const route = useRoute();
+const onJobResultsPage = computed(() => route.name === "JobResultsView");
+/// the route.name is the reactive object, and use computed() to track the route.name, Here the onJobResultsPage return the true or false value.
 const jobsStore = useJobsStore();
 const FILTERED_JOBS = computed(() => jobsStore.FILTERED_JOBS);
+//the reason computed here is to create a reactive data property that actumatively updates when jobsStore.FILTERED_JOB changes.
 </script>
 <template>
   <div
