@@ -4,25 +4,22 @@ import { useJobsStore } from "@/stores/jobs.js";
 import { useUserStore } from "@/stores/user.js";
 import { createTestingPinia } from "@pinia/testing";
 import JobFilterSideBarJobTypes from "@/components/JobResults/JobFiltersSideBar/JobFilterSideBarJobTypes.vue";
-
+import { useRouter } from "vue-router";
+vi.mock("vue-router");
 describe("JobFilterSideBarJobTypes", () => {
   const renderJobFilterSideBarJobTypes = () => {
     const pinia = createTestingPinia();
     const jobsStore = useJobsStore();
     const userStore = useUserStore();
-    const $router = { push: vi.fn() };
     render(JobFilterSideBarJobTypes, {
       global: {
-        mocks: {
-          $router,
-        },
         stubs: {
           FontAwesomeIcon: true,
         },
         plugins: [pinia],
       },
     });
-    return { jobsStore, userStore, $router };
+    return { jobsStore, userStore };
   };
 
   it("render unique jobtypes from the jobs list", async () => {
@@ -32,11 +29,8 @@ describe("JobFilterSideBarJobTypes", () => {
     const button = screen.getByRole("button", {
       name: /job type/i,
     });
-
     await userEvent.click(button);
-
     const uniqueJobTypeList = screen.getAllByRole("listitem");
-
     const jobType = uniqueJobTypeList.map((node) => node.textContent);
 
     expect(jobType).toEqual(["Full-time", "Part-time"]);
@@ -45,6 +39,7 @@ describe("JobFilterSideBarJobTypes", () => {
   // adding test to to check whether delivering correct dispact when user clicks on the filter checkbox
   describe("when user select the job types checkbox", () => {
     it("communicates that the user has selected the filter jobType checkbox", async () => {
+      useRouter.mockReturnValue({ push: vi.fn() });
       const { jobsStore, userStore } = renderJobFilterSideBarJobTypes();
       jobsStore.UNIQUE_JOB_TYPES = new Set(["Full-time", "Part-time"]);
       const button = screen.getByRole("button", {
@@ -61,7 +56,9 @@ describe("JobFilterSideBarJobTypes", () => {
     });
 
     it("navigate user to job results page to receive fresh batch of filter", async () => {
-      const { jobsStore, $router } = renderJobFilterSideBarJobTypes();
+      const push = vi.fn();
+      useRouter.mockReturnValue({ push });
+      const { jobsStore } = renderJobFilterSideBarJobTypes();
       jobsStore.UNIQUE_JOB_TYPES = new Set(["Full-time"]);
       const button = screen.getByRole("button", {
         name: /job types/i,
@@ -71,7 +68,7 @@ describe("JobFilterSideBarJobTypes", () => {
         name: /full-time/i,
       });
       await userEvent.click(fullTimeCheckbox);
-      expect($router.push).toHaveBeenCalledWith({ name: "JobResultsView" });
+      expect(push).toHaveBeenCalledWith({ name: "JobResultsView" });
     });
   });
 });
