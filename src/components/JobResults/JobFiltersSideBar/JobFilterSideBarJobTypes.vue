@@ -1,27 +1,17 @@
-<script>
+<script setup>
 import CollapsibleAccordion from "@/components/Share/CollapsibleAccordion.vue";
-import { mapState, mapActions } from "pinia";
-import { useJobsStore, UNIQUE_JOB_TYPES } from "@/stores/jobs.js";
-import { useUserStore, ADD_SELECTED_JOB_TYPES } from "@/stores/user.js";
-
-export default {
-  name: "JobFilterSideBarJobTypes",
-  components: { CollapsibleAccordion },
-  data() {
-    return {
-      selectedJobTypes: [],
-    };
-  },
-  computed: {
-    ...mapState(useJobsStore, [UNIQUE_JOB_TYPES]),
-  },
-  methods: {
-    ...mapActions(useUserStore, [ADD_SELECTED_JOB_TYPES]),
-    selectJobStypes() {
-      this.ADD_SELECTED_JOB_TYPES(this.selectedJobTypes);
-      this.$router.push({ name: "JobResultsView" });
-    },
-  },
+import { useJobsStore } from "@/stores/jobs.js";
+import { useUserStore } from "@/stores/user.js";
+import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
+const selectedJobTypes = ref([]);
+const jobsStore = useJobsStore();
+const userStore = useUserStore();
+const UNIQUE_JOB_TYPES = computed(() => jobsStore.UNIQUE_JOB_TYPES);
+const selectJobTypes = () => {
+  userStore.ADD_SELECTED_JOB_TYPES(selectedJobTypes.value);
+  router.push({ name: "JobResultsView" });
 };
 </script>
 
@@ -41,7 +31,7 @@ export default {
               :value="jobType"
               type="checkbox"
               class="mr-3"
-              @change="selectJobStypes"
+              @change="selectJobTypes"
             />
             <label :for="jobType">{{ jobType }}</label>
           </li>
