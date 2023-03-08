@@ -1,18 +1,13 @@
-<script>
+<script setup>
 import ActionButton from "@/components/Share/ActionButton.vue";
-import JobFilterSideBarOrganisation from "@/components/JobResults/JobFiltersSideBar/JobFilterSideBarOrganisation.vue";
-import JobFilterSideBarJobTypes from "@/components/JobResults/JobFiltersSideBar/JobFilterSideBarJobTypes.vue";
-import CollapsibleAccordion from "@/components/Share/CollapsibleAccordion.vue";
-
-export default {
-  name: "JobFiltersSideBar",
-  components: {
-    ActionButton,
-    CollapsibleAccordion,
-    JobFilterSideBarOrganisation,
-    JobFilterSideBarJobTypes,
-  },
-};
+import JobFilterSideBarCheckboxGroup from "@/components/JobResults/JobFiltersSidebar/JobFilterSideBarCheckboxGroup.vue";
+import { useJobsStore } from "@/stores/jobs";
+import { useUserStore } from "@/stores/user";
+import { computed } from "vue";
+const jobsStore = useJobsStore();
+const userStore = useUserStore();
+const UNIQUE_JOB_TYPES = computed(() => jobsStore.UNIQUE_JOB_TYPES);
+const UNIQUE_ORGANIZATIONS = computed(() => jobsStore.UNIQUE_ORGANIZATIONS);
 </script>
 
 <template>
@@ -26,16 +21,16 @@ export default {
           <action-button text="Clear Filter" type="secondary" />
         </div>
       </div>
-      <collapsible-accordion header="Job Types">
-        <div>placeholder</div>
-      </collapsible-accordion>
-
-      <collapsible-accordion></collapsible-accordion>
-
-      <collapsible-accordion></collapsible-accordion>
-
-      <job-filter-side-bar-organisation />
-      <job-filter-side-bar-job-types />
+      <job-filter-side-bar-checkbox-group
+        header="Organizations"
+        :unique-values="UNIQUE_ORGANIZATIONS"
+        :action="userStore.ADD_SELECTED_ORGANIZATIONS"
+      />
+      <job-filter-side-bar-checkbox-group
+        header="Job Types"
+        :unique-values="UNIQUE_JOB_TYPES"
+        :action="userStore.ADD_SELECTED_JOB_TYPES"
+      />
     </section>
   </div>
 </template>
