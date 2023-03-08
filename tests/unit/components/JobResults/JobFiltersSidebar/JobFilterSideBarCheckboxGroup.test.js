@@ -1,18 +1,25 @@
 import { render, screen } from "@testing-library/vue";
 import userEvent from "@testing-library/user-event";
-import { useJobsStore } from "@/stores/jobs.js";
-import { useUserStore } from "@/stores/user.js";
+// import { useJobsStore } from "@/stores/jobs.js";
+// import { useUserStore } from "@/stores/user.js";
 import { createTestingPinia } from "@pinia/testing";
-import JobFilterSideBarOrganisation from "@/components/JobResults/JobFiltersSideBar/JobFilterSideBarOrganisation.vue";
+import JobFilterSideBarCheckboxGroup from "@/components/JobResults/JobFiltersSideBar/JobFilterSideBarCheckboxGroup.vue";
 import { useRouter } from "vue-router";
 vi.mock("vue-router");
 
-describe("JobFilterSideBarOrganisation", () => {
-  const renderJobFilterSideBarOrganisation = () => {
+describe("JobFilterSideBarCheckboxGroup", () => {
+  const createProps = (props = {}) => ({
+    header: "A header",
+    uniqueValues: new Set(["value1", "value2"]),
+    action: vi.fn(),
+    ...props,
+  });
+  const renderJobFilterSideBarCheckboxGroup = (props) => {
     const pinia = createTestingPinia();
-    const jobsStore = useJobsStore();
-    const userStore = useUserStore();
-    render(JobFilterSideBarOrganisation, {
+    render(JobFilterSideBarCheckboxGroup, {
+      props: {
+        ...props,
+      },
       global: {
         stubs: {
           FontAwesomeIcon: true,
@@ -20,32 +27,34 @@ describe("JobFilterSideBarOrganisation", () => {
         plugins: [pinia],
       },
     });
-    return { jobsStore, userStore };
   };
 
-  it("render unique organisations from the jobs list", async () => {
-    const { jobsStore } = renderJobFilterSideBarOrganisation();
-    jobsStore.UNIQUE_ORGANIZATIONS = new Set(["Google", "Amazon"]);
-
+  it("render unique list of values", async () => {
+    const props = createProps({
+      header: "organisation",
+      uniqueValues: new Set(["Google", "Amazon"]),
+    });
+    renderJobFilterSideBarCheckboxGroup(props);
     const button = screen.getByRole("button", {
       name: /organisation/i,
     });
-
     await userEvent.click(button);
-
     const uniqueOrganizationList = screen.getAllByRole("listitem");
-
     const organization = uniqueOrganizationList.map((node) => node.textContent);
-
     expect(organization).toEqual(["Google", "Amazon"]);
   });
 
   // adding test to to check whether delivering correct dispact when user clicks on the filter checkbox
   describe("when user clicks on checkbox", () => {
-    it("communicates that the user has selected the filter organization checkbox", async () => {
+    it("communicates the values that the user has selected through  the filter checkbox", async () => {
       useRouter.mockReturnValue({ push: vi.fn() });
-      const { jobsStore, userStore } = renderJobFilterSideBarOrganisation();
-      jobsStore.UNIQUE_ORGANIZATIONS = new Set(["Google", "Amazon"]);
+      const action = vi.fn();
+      const props = createProps({
+        header: "organisations",
+        uniqueValues: new Set(["Google", "Amazon"]),
+        action,
+      });
+      renderJobFilterSideBarCheckboxGroup(props);
       const button = screen.getByRole("button", {
         name: /organisations/i,
       });
@@ -54,16 +63,17 @@ describe("JobFilterSideBarOrganisation", () => {
         name: /google/i,
       });
       await userEvent.click(googleCheckbox);
-      expect(userStore.ADD_SELECTED_ORGANIZATIONS).toHaveBeenCalledWith([
-        "Google",
-      ]);
+      expect(action).toHaveBeenCalledWith(["Google"]);
     });
 
     it("navigate to the job result page to see fresh batch of filtered jobs", async () => {
       const push = vi.fn();
       useRouter.mockReturnValue({ push });
-      const { jobsStore } = renderJobFilterSideBarOrganisation();
-      jobsStore.UNIQUE_ORGANIZATIONS = new Set(["Google", "Amazon"]);
+      const props = createProps({
+        header: "organisations",
+        uniqueValues: new Set(["Google"]),
+      });
+      renderJobFilterSideBarCheckboxGroup(props);
       const button = screen.getByRole("button", {
         name: /organisations/i,
       });
