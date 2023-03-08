@@ -9,6 +9,8 @@ vi.mock("vue-router");
 describe("JobListings", () => {
   const renderJobListings = () => {
     const pinia = createTestingPinia();
+    const jobsStore = useJobsStore();
+    jobsStore.FILTERED_JOBS = Array(15).fill({});
 
     render(JobListings, {
       global: {
@@ -18,21 +20,19 @@ describe("JobListings", () => {
         },
       },
     });
+    return { jobsStore };
   };
 
   it("fetches the job data", () => {
     useRoute.mockReturnValue({ query: {} });
-    renderJobListings();
-    const jobsStore = useJobsStore();
+    const { jobsStore } = renderJobListings();
     expect(jobsStore.FETCH_JOBS).toHaveBeenCalled();
   });
 
   it("display maximum of 10 jobs", async () => {
     useRoute.mockReturnValue({ query: { page: "1" } });
-    renderJobListings();
-    const jobsStore = useJobsStore();
-    jobsStore.jobs = Array(15).fill({});
-
+    const { jobsStore } = renderJobListings();
+    jobsStore.FILTERED_JOBS = Array(15).fill({});
     const jobListings = await screen.findAllByRole("listitem");
     expect(jobListings).toHaveLength(10);
     // expect(jobListings.length).toBe(10);
@@ -59,9 +59,8 @@ describe("JobListings", () => {
   describe("when the user at the first page ", () => {
     it("not display the previous button", async () => {
       useRoute.mockReturnValue({ query: { page: "1" } });
-      renderJobListings();
-      const jobsStore = useJobsStore();
-      jobsStore.jobs = Array(25).fill({});
+      const { jobsStore } = renderJobListings();
+      jobsStore.FILTERED_JOBS = Array(25).fill({});
       await screen.findAllByRole("listitem");
       const previousLink = screen.queryByRole("link", { name: /previous/i });
       expect(previousLink).not.toBeInTheDocument();
@@ -69,9 +68,8 @@ describe("JobListings", () => {
 
     it("display the next button", async () => {
       useRoute.mockReturnValue({ query: { page: "1" } });
-      renderJobListings();
-      const jobsStore = useJobsStore();
-      jobsStore.jobs = Array(25).fill({});
+      const { jobsStore } = renderJobListings();
+      jobsStore.FILTERED_JOBS = Array(25).fill({});
       await screen.findAllByRole("listitem");
       const nextLink = screen.queryByRole("link", { name: /next/i });
       // screen.debug();
@@ -83,9 +81,8 @@ describe("JobListings", () => {
     it("not display the next button", async () => {
       // axios.get.mockResolvedValue({ data: Array(25).fill({}) });
       useRoute.mockReturnValue({ query: { page: "3" } });
-      renderJobListings();
-      const jobsStore = useJobsStore();
-      jobsStore.jobs = Array(25).fill({});
+      const { jobsStore } = renderJobListings();
+      jobsStore.FILTERED_JOBS = Array(25).fill({});
       await screen.findAllByRole("listitem");
       const nextLink = screen.queryByRole("link", { name: /next/i });
       expect(nextLink).not.toBeInTheDocument();
@@ -93,9 +90,8 @@ describe("JobListings", () => {
 
     it("display the previous button", async () => {
       useRoute.mockReturnValue({ query: { page: "3" } });
-      renderJobListings();
-      const jobsStore = useJobsStore();
-      jobsStore.jobs = Array(25).fill({});
+      const { jobsStore } = renderJobListings();
+      jobsStore.FILTERED_JOBS = Array(25).fill({});
       await screen.findAllByRole("listitem");
       const previousLink = screen.queryByRole("link", { name: /previous/i });
       expect(previousLink).toBeInTheDocument();
