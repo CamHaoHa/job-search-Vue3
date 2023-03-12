@@ -1,9 +1,12 @@
+import type { Mock } from "vitest";
+import type { Job } from "@/api/types";
 import { createPinia, setActivePinia } from "pinia";
 import { useJobsStore } from "@/stores/jobs";
 import { useUserStore } from "@/stores/user";
 import axios from "axios";
 
 vi.mock("axios");
+const axiosGetMock = axios.get as Mock;
 
 describe("state", () => {
   beforeEach(() => {
@@ -23,7 +26,7 @@ describe("action", () => {
 
   describe("FETCH_JOBS", () => {
     it("makes API requests and store received data", async () => {
-      axios.get.mockResolvedValue({ data: ["Job1", "Job2"] });
+      axiosGetMock.mockResolvedValue({ data: ["Job1", "Job2"] });
       const store = useJobsStore();
       await store.FETCH_JOBS();
       expect(store.jobs).toEqual(["Job1", "Job2"]);
@@ -43,7 +46,7 @@ describe("getter", () => {
         { organization: "Meta" },
         { organization: "Alphabet" },
         { organization: "Meta" },
-      ];
+      ] as Job[];
       const result = store.UNIQUE_ORGANIZATIONS;
 
       expect(result).toEqual(new Set(["Alphabet", "Meta"]));
@@ -57,7 +60,7 @@ describe("getter", () => {
         { jobType: "Full-time" },
         { jobType: "Part-time" },
         { jobType: "Full-time" },
-      ];
+      ] as Job[];
       const result = store.UNIQUE_JOB_TYPES;
       expect(result).toEqual(new Set(["Full-time", "Part-time"]));
     });
@@ -69,7 +72,7 @@ describe("getter", () => {
         const userStore = useUserStore();
         userStore.selectedOrganizations = [];
         const store = useJobsStore();
-        const job = { organization: "Tesla" };
+        const job = { organization: "Tesla" } as Job;
         const result = store.INCLUDE_JOB_BY_ORGANIZATION(job);
         expect(result).toBe(true);
       });
@@ -79,7 +82,7 @@ describe("getter", () => {
       const userStore = useUserStore();
       userStore.selectedOrganizations = ["Google", "Tesla"];
       const store = useJobsStore();
-      const job = { organization: "Tesla" };
+      const job = { organization: "Tesla" } as Job;
       const result = store.INCLUDE_JOB_BY_ORGANIZATION(job);
       expect(result).toBe(true);
     });
@@ -91,7 +94,7 @@ describe("getter", () => {
         const userStore = useUserStore();
         userStore.selectedJobTypes = [];
         const store = useJobsStore();
-        const job = { jobType: "Full-time" };
+        const job = { jobType: "Full-time" } as Job;
         const result = store.INCLUDE_JOB_BY_JOB_TYPE(job);
         expect(result).toBe(true);
       });
@@ -101,7 +104,7 @@ describe("getter", () => {
       const userStore = useUserStore();
       userStore.selectedOrganizations = ["Full-time", "Part-time"];
       const store = useJobsStore();
-      const job = { jobType: "Full-time" };
+      const job = { jobType: "Full-time" } as Job;
       const result = store.INCLUDE_JOB_BY_JOB_TYPE(job);
       expect(result).toBe(true);
     });
