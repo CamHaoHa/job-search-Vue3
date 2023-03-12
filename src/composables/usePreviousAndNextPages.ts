@@ -1,5 +1,9 @@
-import { computed } from "vue";
-const usePreviousAndNextPages = (currentPage, maxPage) => {
+import { type Ref, computed } from "vue";
+//usePreviousAndNextPage receives 2 reactive objects and return a plain object with 2 reactive properties
+const usePreviousAndNextPages = (
+  currentPage: Ref<number>,
+  maxPage: Ref<number>
+) => {
   const previousPage = computed(() => {
     const previousPage = currentPage.value - 1;
     const firstPage = 1;
