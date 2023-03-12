@@ -5,7 +5,7 @@ export interface Job {
   degree: string;
   jobType: string;
   location: string[];
-  minumumQualifications: string[];
+  minimumQualifications: string[];
   preferredQualifications: string[];
   description: string[];
   dateAdded: string;

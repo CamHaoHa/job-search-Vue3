@@ -3,7 +3,7 @@ import ActionButton from "@/components/Share/ActionButton.vue";
 import ProfileImage from "@/components/Navigation/ProfileImage.vue";
 import TheSubnav from "@/components/Navigation/TheSubnav.vue";
 import { mapStores } from "pinia";
-import { useUserStore } from "@/stores/user.js";
+import { useUserStore } from "@/stores/user";
 
 export default {
   name: "MainNav",

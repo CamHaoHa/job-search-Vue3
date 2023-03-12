@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import getJobs from "@/api/getJobs";
-import { useUserStore } from "@/stores/user.js";
+import { useUserStore } from "@/stores/user";
 import type { Job } from "@/api/types";
 
 export interface JobsState {

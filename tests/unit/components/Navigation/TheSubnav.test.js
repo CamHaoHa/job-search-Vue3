@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/vue";
 import TheSubNav from "@/components/Navigation/TheSubNav.vue";
 import { createTestingPinia } from "@pinia/testing";
-import { useJobsStore } from "@/stores/jobs.js";
+import { useJobsStore } from "@/stores/jobs";
 import { useRoute } from "vue-router";
 vi.mock("vue-router");
 //vi-mock loop through view-router library and replace anything with vue test mocks functions include useRoute
