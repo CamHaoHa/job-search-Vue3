@@ -21,31 +21,6 @@ const headerHeightClass = computed(() => ({
   "h-16": !isLoggedIn.value,
   "h-32": isLoggedIn.value,
 }));
-
-// export default {
-//   name: "MainNav",
-//   components: {
-//     ActionButton,
-//     ProfileImage,
-//     TheSubnav,
-//   },
-//   data() {
-//     return {
-//       company: "VueJobs.com",
-//       url: "https://google.com",
-//       menuItems: ,
-//     };
-//   },
-//   computed: {
-//     ...mapStores(useUserStore),
-//     headerHeightClass() {
-//       return {
-//         "h-16": !this.userStore.isLoggedIn,
-//         "h-32": this.userStore.isLoggedIn,
-//       };
-//     },
-//   },
-// };
 </script>
 
 <template>

@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import { useJobsStore } from "@/stores/jobs";
 import { computed } from "vue";
 import { useRoute } from "vue-router";
