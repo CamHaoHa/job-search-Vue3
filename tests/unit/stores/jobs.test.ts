@@ -1,6 +1,5 @@
 import type { Mock } from "vitest";
 import { createJob } from "../../utils/createJob";
-import type { Job } from "@/api/types";
 import { createPinia, setActivePinia } from "pinia";
 import { useJobsStore } from "@/stores/jobs";
 import { useUserStore } from "@/stores/user";
