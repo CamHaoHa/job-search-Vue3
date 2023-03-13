@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import ActionButton from "@/components/Share/ActionButton.vue";
 import TextInput from "@/components/Share/TextInput.vue";
 import { ref } from "vue";
