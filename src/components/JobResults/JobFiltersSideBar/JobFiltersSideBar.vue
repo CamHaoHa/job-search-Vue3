@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import ActionButton from "@/components/Share/ActionButton.vue";
 import JobFilterSideBarCheckboxGroup from "@/components/JobResults/JobFiltersSidebar/JobFilterSideBarCheckboxGroup.vue";
 import { useJobsStore } from "@/stores/jobs";

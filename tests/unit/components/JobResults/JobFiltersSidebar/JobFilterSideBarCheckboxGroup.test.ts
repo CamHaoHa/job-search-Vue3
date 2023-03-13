@@ -1,3 +1,4 @@
+import type { Mock } from "vitest";
 import { render, screen } from "@testing-library/vue";
 import userEvent from "@testing-library/user-event";
 // import { useJobsStore } from "@/stores/jobs.js";
@@ -6,15 +7,24 @@ import { createTestingPinia } from "@pinia/testing";
 import JobFilterSideBarCheckboxGroup from "@/components/JobResults/JobFiltersSideBar/JobFilterSideBarCheckboxGroup.vue";
 import { useRouter } from "vue-router";
 vi.mock("vue-router");
-
+const useRouterMock = useRouter as Mock;
 describe("JobFilterSideBarCheckboxGroup", () => {
-  const createProps = (props = {}) => ({
+  interface JobFilterSideBarCheckboxGroupProps {
+    header: string;
+    uniqueValues: Set<string>;
+    action: Mock;
+  }
+  const createProps = (
+    props: Partial<JobFilterSideBarCheckboxGroupProps> = {}
+  ): JobFilterSideBarCheckboxGroupProps => ({
     header: "A header",
     uniqueValues: new Set(["value1", "value2"]),
     action: vi.fn(),
     ...props,
   });
-  const renderJobFilterSideBarCheckboxGroup = (props) => {
+  const renderJobFilterSideBarCheckboxGroup = (
+    props: JobFilterSideBarCheckboxGroupProps
+  ) => {
     const pinia = createTestingPinia();
     render(JobFilterSideBarCheckboxGroup, {
       props: {
@@ -47,7 +57,7 @@ describe("JobFilterSideBarCheckboxGroup", () => {
   // adding test to to check whether delivering correct dispact when user clicks on the filter checkbox
   describe("when user clicks on checkbox", () => {
     it("communicates the values that the user has selected through  the filter checkbox", async () => {
-      useRouter.mockReturnValue({ push: vi.fn() });
+      useRouterMock.mockReturnValue({ push: vi.fn() });
       const action = vi.fn();
       const props = createProps({
         header: "organisations",
@@ -68,7 +78,7 @@ describe("JobFilterSideBarCheckboxGroup", () => {
 
     it("navigate to the job result page to see fresh batch of filtered jobs", async () => {
       const push = vi.fn();
-      useRouter.mockReturnValue({ push });
+      useRouterMock.mockReturnValue({ push });
       const props = createProps({
         header: "organisations",
         uniqueValues: new Set(["Google"]),
