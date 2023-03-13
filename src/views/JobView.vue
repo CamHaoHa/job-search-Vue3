@@ -1,13 +1,4 @@
-<script>
-export default {
-  name: "JobView",
-  computed: {
-    currentJobId() {
-      return this.$route.params.id;
-    },
-  },
-};
-</script>
+<script lang="ts" setup></script>
 <template>
   <div>Job Page for job {{ currentJobId }}</div>
 </template>
