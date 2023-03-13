@@ -1,41 +1,51 @@
-<script>
+<script lang="ts" setup>
 import ActionButton from "@/components/Share/ActionButton.vue";
 import ProfileImage from "@/components/Navigation/ProfileImage.vue";
 import TheSubnav from "@/components/Navigation/TheSubnav.vue";
-import { mapStores } from "pinia";
-import { useUserStore } from "@/stores/user";
 
-export default {
-  name: "MainNav",
-  components: {
-    ActionButton,
-    ProfileImage,
-    TheSubnav,
-  },
-  data() {
-    return {
-      company: "VueJobs.com",
-      url: "https://google.com",
-      menuItems: [
-        { text: "Teams", url: "/teams" },
-        { text: "Location", url: "/" },
-        { text: "Benefits", url: "/" },
-        { text: "Jobs", url: "/jobs/results" },
-        { text: "Students", url: "/" },
-        { text: "About Us", url: "/" },
-      ],
-    };
-  },
-  computed: {
-    ...mapStores(useUserStore),
-    headerHeightClass() {
-      return {
-        "h-16": !this.userStore.isLoggedIn,
-        "h-32": this.userStore.isLoggedIn,
-      };
-    },
-  },
-};
+import { ref, computed } from "vue";
+import { useUserStore } from "@/stores/user";
+const menuItems = ref([
+  { text: "Teams", url: "/teams" },
+  { text: "Location", url: "/" },
+  { text: "Benefits", url: "/" },
+  { text: "Jobs", url: "/jobs/results" },
+  { text: "Students", url: "/" },
+  { text: "About Us", url: "/" },
+]);
+const userStore = useUserStore();
+const isLoggedIn = computed(() => userStore.isLoggedIn);
+const loginUser = userStore.loginUser;
+
+const headerHeightClass = computed(() => ({
+  "h-16": !isLoggedIn.value,
+  "h-32": isLoggedIn.value,
+}));
+
+// export default {
+//   name: "MainNav",
+//   components: {
+//     ActionButton,
+//     ProfileImage,
+//     TheSubnav,
+//   },
+//   data() {
+//     return {
+//       company: "VueJobs.com",
+//       url: "https://google.com",
+//       menuItems: ,
+//     };
+//   },
+//   computed: {
+//     ...mapStores(useUserStore),
+//     headerHeightClass() {
+//       return {
+//         "h-16": !this.userStore.isLoggedIn,
+//         "h-32": this.userStore.isLoggedIn,
+//       };
+//     },
+//   },
+// };
 </script>
 
 <template>
@@ -47,7 +57,7 @@ export default {
         <router-link
           :to="{ name: 'Home' }"
           class="flex h-full items-center text-3xl font-semibold"
-          >{{ company }}</router-link
+          >VueJobs.com</router-link
         >
 
         <nav class="ml-12 h-full">
