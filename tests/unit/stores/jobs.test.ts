@@ -1,6 +1,6 @@
 import type { Mock } from "vitest";
 import { createJob } from "../../utils/createJob";
-// import type { Job } from "@/api/types";
+import type { Job } from "@/api/types";
 import { createPinia, setActivePinia } from "pinia";
 import { useJobsStore } from "@/stores/jobs";
 import { useUserStore } from "@/stores/user";
@@ -36,20 +36,6 @@ describe("action", () => {
 });
 
 describe("getter", () => {
-  //factory function
-  const createJob = (job: Partial<Job> = {}): Job => ({
-    id: 1,
-    title: "Angular Developer",
-    organization: "Vue",
-    degree: "Bachelor",
-    jobType: "Intern",
-    location: ["Sydney"],
-    minimumQualifications: ["Mesh granular deliverables"],
-    preferredQualifications: ["Mesh wireless metrics"],
-    description: ["Awewoms"],
-    dateAdded: "2021",
-    ...job,
-  });
   beforeEach(() => {
     setActivePinia(createPinia());
   });
