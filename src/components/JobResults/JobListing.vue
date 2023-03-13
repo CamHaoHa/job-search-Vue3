@@ -1,8 +1,9 @@
-<script setup>
-import { computed } from "vue";
+<script lang="ts" setup>
+import { computed, type PropType } from "vue";
+import type { Job } from "@/api/types";
 const props = defineProps({
   job: {
-    type: Object,
+    type: Object as PropType<Job>,
     required: true,
   },
 });
@@ -26,7 +27,7 @@ const jobPageLink = computed(() => `jobs/results/${props.job.id}`);
           <div>
             <ul>
               <li
-                v-for="location in job.locations"
+                v-for="location in job.location"
                 :key="location"
                 class="mr-5 inline-block"
               >
