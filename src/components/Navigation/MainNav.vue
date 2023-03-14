@@ -15,7 +15,7 @@ const menuItems = ref([
 ]);
 const userStore = useUserStore();
 const isLoggedIn = computed(() => userStore.isLoggedIn);
-const loginUser = userStore.loginUser;
+const LOGIN_USER = userStore.LOGIN_USER;
 
 const headerHeightClass = computed(() => ({
   "h-16": !isLoggedIn.value,
@@ -53,7 +53,7 @@ const headerHeightClass = computed(() => ({
 
         <div class="ml-auto flex h-full items-center">
           <profile-image v-if="userStore.isLoggedIn" />
-          <action-button v-else text="Sign in" @:click="userStore.loginUser" />
+          <action-button v-else text="Sign in" @click="LOGIN_USER" />
         </div>
       </div>
 
