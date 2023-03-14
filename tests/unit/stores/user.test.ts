@@ -16,9 +16,14 @@ describe("state", () => {
     expect(store.selectedOrganizations).toEqual([]);
   });
 
-  it("stores job tyoes that the user would like to filter by", () => {
+  it("stores job types that the user would like to filter by", () => {
     const store = useUserStore();
     expect(store.selectedJobTypes).toEqual([]);
+  });
+
+  it("store degree types that the user would like to filter by", () => {
+    const store = useUserStore();
+    expect(store.selectedDegrees).toEqual([]);
   });
 });
 
@@ -47,6 +52,17 @@ describe("actions", () => {
       const store = useUserStore();
       store.ADD_SELECTED_JOB_TYPES(["Full-time"]);
       expect(store.selectedJobTypes).toEqual(["Full-time"]);
+    });
+  });
+
+  describe("ADD_SELECTED_DEGREES", () => {
+    it("update degrees required that the user apply for the job filter", () => {
+      const store = useUserStore();
+      store.ADD_SELECTED_DEGREES(["Bachelor Degree", "Master Degree"]);
+      expect(store.selectedDegrees).toEqual([
+        "Bachelor Degree",
+        "Master Degree",
+      ]);
     });
   });
 });

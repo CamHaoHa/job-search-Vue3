@@ -109,4 +109,26 @@ describe("getter", () => {
       expect(result).toBe(true);
     });
   });
+
+  describe("INCLUDE_JOB_BY_DEGREE", () => {
+    describe("when the user has not chosen a degree for job filters", () => {
+      it("includes job", () => {
+        const userStore = useUserStore();
+        userStore.selectedDegrees = [];
+        const store = useJobsStore();
+        const job = createJob();
+        const result = store.INCLUDE_JOB_BY_DEGREE(job);
+        expect(result).toBe(true);
+      });
+    });
+
+    it("udentifies if job is associated with a given degrees", () => {
+      const userStore = useUserStore();
+      userStore.selectedDegrees = ["data1", "data2"];
+      const store = useJobsStore();
+      const job = createJob({ degree: "data1" });
+      const result = store.INCLUDE_JOB_BY_DEGREE(job);
+      expect(result).toBe(true);
+    });
+  });
 });
