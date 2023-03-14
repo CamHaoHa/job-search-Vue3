@@ -65,4 +65,18 @@ describe("actions", () => {
       ]);
     });
   });
+
+  describe("CLEAR_USER_JOB_FILTERS_SELECTION", () => {
+    it("reset all filters that the users have chosen", () => {
+      const store = useUserStore();
+      store.selectedOrganizations = ["data"];
+      store.selectedJobTypes = ["data"];
+      store.selectedDegrees = ["data"];
+
+      store.CLEAR_USER_JOB_FILTERS_SELECTION();
+      expect(store.selectedOrganizations).toEqual([]);
+      expect(store.selectedJobTypes).toEqual([]);
+      expect(store.selectedDegrees).toEqual([]);
+    });
+  });
 });
