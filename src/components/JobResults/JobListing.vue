@@ -27,7 +27,7 @@ const jobPageLink = computed(() => `jobs/results/${props.job.id}`);
           <div>
             <ul>
               <li
-                v-for="location in job.location"
+                v-for="location in job.locations"
                 :key="location"
                 class="mr-5 inline-block"
               >

@@ -33,7 +33,7 @@ describe("JobListing", () => {
   });
 
   it("render the job locations", () => {
-    const jobLocations = createJob({ location: ["Sydney", "Melbourne"] });
+    const jobLocations = createJob({ locations: ["Sydney", "Melbourne"] });
     renderJobListing(jobLocations);
     expect(screen.getByText("Sydney")).toBeInTheDocument();
     expect(screen.getByText("Melbourne")).toBeInTheDocument();
