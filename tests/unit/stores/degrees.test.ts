@@ -43,7 +43,7 @@ describe("getter", () => {
         createDegree({ degree: "data2" }),
         createDegree({ degree: "data1" }),
       ];
-      const result = store.UNIQUE_DEGREEES;
+      const result = store.UNIQUE_DEGREES;
       expect(result).toEqual(new Set(["data1", "data2"]));
     });
   });

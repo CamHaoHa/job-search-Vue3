@@ -10,11 +10,11 @@ export const useDegreesStore = defineStore("degrees", () => {
     const degreesData = await getDegrees();
     degrees.value = degreesData;
   };
-  const UNIQUE_DEGREEES = computed(() => {
+  const UNIQUE_DEGREES = computed(() => {
     const uniqueDegrees = new Set<string>();
     degrees.value.forEach((degree) => uniqueDegrees.add(degree.degree));
     return uniqueDegrees;
   });
 
-  return { degrees, FETCH_DEGREES, UNIQUE_DEGREEES };
+  return { degrees, FETCH_DEGREES, UNIQUE_DEGREES };
 });
