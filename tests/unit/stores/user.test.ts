@@ -25,6 +25,11 @@ describe("state", () => {
     const store = useUserStore();
     expect(store.selectedDegrees).toEqual([]);
   });
+
+  it("stores user search term for skills and qualification", () => {
+    const store = useUserStore();
+    expect(store.skillSearchTerms).toBe("");
+  });
 });
 
 describe("actions", () => {
@@ -66,17 +71,28 @@ describe("actions", () => {
     });
   });
 
+  describe("ADD_SKILL_SEARCH_TERMS", () => {
+    it("update search tearm that the user input for the job filter", () => {
+      const store = useUserStore();
+      store.skillSearchTerms = "";
+      store.ADD_SKILL_SEARCH_TERMS("Skill");
+      expect(store.skillSearchTerms).toBe("Skill");
+    });
+  });
+
   describe("CLEAR_USER_JOB_FILTERS_SELECTION", () => {
     it("reset all filters that the users have chosen", () => {
       const store = useUserStore();
       store.selectedOrganizations = ["data"];
       store.selectedJobTypes = ["data"];
       store.selectedDegrees = ["data"];
+      store.skillSearchTerms = "Data";
 
       store.CLEAR_USER_JOB_FILTERS_SELECTION();
       expect(store.selectedOrganizations).toEqual([]);
       expect(store.selectedJobTypes).toEqual([]);
       expect(store.selectedDegrees).toEqual([]);
+      expect(store.skillSearchTerms).toBe("");
     });
   });
 });

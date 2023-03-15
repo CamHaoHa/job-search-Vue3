@@ -1,10 +1,14 @@
 <script lang="ts" setup>
+import { onMounted } from "vue";
+import { userRoute } from "vue-router";
+
 import CollapsibleAccordion from "@/components/Share/CollapsibleAccordion.vue";
 
 import JobFilterSideBarDegrees from "@/components/JobResults/JobFiltersSideBar/JobFilterSideBarDegrees.vue";
 import JobFilterSideBarJobTypes from "@/components/JobResults/JobFiltersSideBar/JobFilterSideBarJobTypes.vue";
 import JobFilterSideBarOrganizations from "@/components/JobResults/JobFiltersSideBar/JobFilterSideBarOrganizations.vue";
 import JobFilterSideBarPrompt from "@/components/JobResults/JobFiltersSideBar/JobFilterSideBarPrompt.vue";
+import JobFilterSideBarSkill from "@/components/JobResults/JobFiltersSideBar/JobFilterSideBarSkills.vue";
 
 import { useUserStore } from "@/stores/user";
 const userStore = useUserStore();
@@ -37,6 +41,10 @@ const userStore = useUserStore();
       <collapsible-accordion header="Degrees"
         ><job-filter-side-bar-degrees />
       </collapsible-accordion>
+
+      <collapsible-accordion header="Skills">
+        <job-filter-side-bar-skill
+      /></collapsible-accordion>
     </section>
   </div>
 </template>

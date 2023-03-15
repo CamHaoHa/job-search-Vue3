@@ -7,16 +7,16 @@ const props = defineProps({
     type: [Set<string>, Array<string>],
     required: true,
   },
-  //const UNIQUE_JOB_TYPES = computed(() => jobsStore.UNIQUE_JOB_TYPES);
+  
   action: {
     type: Function,
     required: true,
   },
-  //userStore.ADD_SELECTED_JOB_TYPES(selectedJobTypes.value);
+  
 });
 const router = useRouter();
 const selectedValues = ref<string[]>([]);
-//const selectedJobTypes = ref([]);
+
 const selectValue = () => {
   props.action(selectedValues.value);
   router.push({ name: "JobResultsView" });

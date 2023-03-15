@@ -13,7 +13,7 @@ export const FILTERED_JOBS = "FILTERED_JOBS";
 export const INCLUDE_JOB_BY_ORGANIZATION = "INCLUDE_JOB_BY_ORGANIZATION";
 export const INCLUDE_JOB_BY_JOB_TYPE = "INCLUDE_JOB_BY_JOB_TYPE";
 export const INCLUDE_JOB_BY_DEGREE = "INCLUDE_JOB_BY_DEGREE";
-
+export const INCLUDE_JOB_BY_SKILL = "INCLUDE_JOB_BY_SKILL";
 export const useJobsStore = defineStore("jobs", {
   state: (): JobsState => ({
     jobs: [],
@@ -57,11 +57,19 @@ export const useJobsStore = defineStore("jobs", {
       return userStore.selectedDegrees.includes(job.degree);
     },
 
+    [INCLUDE_JOB_BY_SKILL]: () => (job: Job) => {
+      const userStore = useUserStore();
+      return job.title
+        .toLowerCase()
+        .includes(userStore.skillSearchTerms.toLowerCase());
+    },
+
     [FILTERED_JOBS](state): Job[] {
       return state.jobs
         .filter((job) => this.INCLUDE_JOB_BY_ORGANIZATION(job))
         .filter((job) => this.INCLUDE_JOB_BY_JOB_TYPE(job))
-        .filter((job) => this.INCLUDE_JOB_BY_DEGREE(job));
+        .filter((job) => this.INCLUDE_JOB_BY_DEGREE(job))
+        .filter((job) => this.INCLUDE_JOB_BY_SKILL(job));
     },
   },
 });

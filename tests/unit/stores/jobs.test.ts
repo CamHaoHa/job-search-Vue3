@@ -122,13 +122,43 @@ describe("getter", () => {
       });
     });
 
-    it("udentifies if job is associated with a given degrees", () => {
+    it("identifies if job is associated with a given degrees", () => {
       const userStore = useUserStore();
       userStore.selectedDegrees = ["data1", "data2"];
       const store = useJobsStore();
       const job = createJob({ degree: "data1" });
       const result = store.INCLUDE_JOB_BY_DEGREE(job);
       expect(result).toBe(true);
+    });
+  });
+
+  describe("INCLUDE_JOB_BY_SKILL", () => {
+    it("include job if job is associate with given skill search term", () => {
+      const userStore = useUserStore();
+      userStore.skillSearchTerms = "Vue Developer";
+      const store = useJobsStore();
+      const job = createJob({ title: "Vue Developer Master" });
+      const result = store.INCLUDE_JOB_BY_SKILL(job);
+      expect(result).toBe(true);
+    });
+    it("handle character casing", () => {
+      const userStore = useUserStore();
+      userStore.skillSearchTerms = "vue developer";
+      const store = useJobsStore();
+      const job = createJob({ title: "Vue Developer Master" });
+      const result = store.INCLUDE_JOB_BY_SKILL(job);
+      expect(result).toBe(true);
+    });
+
+    describe("when the user has not fill any skill terms for filtering", () => {
+      it("include jobs", () => {
+        const userStore = useUserStore();
+        userStore.skillSearchTerms = "";
+        const store = useJobsStore();
+        const job = createJob({ title: "Vue Developer Master" });
+        const result = store.INCLUDE_JOB_BY_SKILL(job);
+        expect(result).toBe(true);
+      });
     });
   });
 });
