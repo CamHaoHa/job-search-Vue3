@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { onMounted } from "vue";
-import { userRoute } from "vue-router";
+import { useRoute } from "vue-router";
 
 import CollapsibleAccordion from "@/components/Share/CollapsibleAccordion.vue";
 
@@ -12,6 +12,13 @@ import JobFilterSideBarSkill from "@/components/JobResults/JobFiltersSideBar/Job
 
 import { useUserStore } from "@/stores/user";
 const userStore = useUserStore();
+const route = useRoute();
+const parseSearchTerms = () => {
+  const role = (route.query.role as string) || "";
+  const company = (route.query.location as string) || "";
+  userStore.ADD_SKILL_SEARCH_TERMS(role);
+};
+onMounted(parseSearchTerms);
 </script>
 
 <template>
@@ -20,16 +27,7 @@ const userStore = useUserStore();
   >
     <section class="pb-5">
       <job-filter-side-bar-prompt />
-      <!-- <div class="flex flex-row justify-between">
-        <h3 class="my-4 text-base font-semibold">What do you want to do?</h3>
-        <div class="flex items-center text-sm">
-          <action-button
-            text="Clear Filter"
-            type="secondary"
-            @click="userStore.CLEAR_USER_JOB_FILTERS_SELECTION"
-          />
-        </div>
-      </div> -->
+
       <collapsible-accordion header="Orgainizations">
         <job-filter-side-bar-organizations
       /></collapsible-accordion>

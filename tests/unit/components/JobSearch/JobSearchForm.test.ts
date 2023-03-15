@@ -24,7 +24,7 @@ describe("JobSearchForm", () => {
       await userEvent.type(roleInput, "Web Developer");
 
       const locationInput = screen.getByRole("textbox", {
-        name: /location/i,
+        name: /company/i,
       });
       await userEvent.type(locationInput, "Sydney");
 

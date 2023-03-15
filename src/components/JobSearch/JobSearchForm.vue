@@ -24,11 +24,7 @@ const searchJob = () => {
         <label for="role" class="absolute left-0 -top-10 font-normal"
           >Role</label
         >
-        <text-input
-          id="role"
-          v-model="role"
-          placeholder="Junior Web Developer"
-        />
+        <text-input id="role" v-model="role" placeholder="Vue" />
       </div>
 
       <span
@@ -38,13 +34,9 @@ const searchJob = () => {
 
       <div class="relative flex h-full flex-1 items-center pl-3">
         <label for="location" class="absolute left-0 -top-10 font-normal"
-          >Location
+          >Company
         </label>
-        <text-input
-          id="location"
-          v-model="location"
-          placeholder="Sydney, NSW, Australia"
-        />
+        <text-input id="location" v-model="location" placeholder="Vue and Me" />
       </div>
 
       <ActionButton type="secondary" text="Search" class="rounded-r-3xl" />
