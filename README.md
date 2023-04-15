@@ -1,6 +1,6 @@
 # job-search
 
-This template should help get you started developing with Vue 3 in Vite.
+Deploy Page: https://vue-project-1-2023.netlify.app/#/
 
 ## Recommended IDE Setup
 
